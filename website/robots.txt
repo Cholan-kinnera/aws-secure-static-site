@@ -1,0 +1,10 @@
+# Robots.txt for www.archonri.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://www.archonri.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 10
