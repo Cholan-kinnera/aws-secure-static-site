@@ -10,22 +10,23 @@
 
 ---
 
-## 📌 Project Overview
+## 📌 Project Overview:
+
 This project demonstrates how to securely host a static website on AWS using industry best practices. The website is stored in an **Amazon S3** bucket and delivered globally using **Amazon CloudFront** with HTTPS, private bucket access, caching, and lifecycle management.
 
 **Goal:** To showcase secure cloud infrastructure design, CDN content delivery, cost optimization, and production-style hosting.
 
-📄 **[View Full Technical Report (PDF)](docs/technical-report.pdf)**
+📄 **[View Full Technical Report (PDF)](docs/AWS_Secure_Static_Website_Hosting.pdf)**
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architecture:
+
 **Flow:** `User` → `CloudFront (CDN + HTTPS)` → `Private S3 Bucket`
 
 CloudFront acts as the secure entry point and fetches content from S3 using **Origin Access Control (OAC)**. Direct public access to the S3 bucket is completely blocked.
 
-![Architecture Diagram](diagram/architecture.png)
-*(Note: Architecture diagram placeholder)*
+![Architecture Diagram](diagram/flow.png)
 
 ---
 
@@ -50,7 +51,7 @@ CloudFront acts as the secure entry point and fetches content from S3 using **Or
 
 ---
 
-## 💰 Cost Control
+## 💰 Cost Control:
 > This project is designed to utilize **AWS Free Tier** services.
 
 * **Serverless:** No EC2, RDS, or Lambda costs.
@@ -60,6 +61,7 @@ CloudFront acts as the secure entry point and fetches content from S3 using **Or
 
 ---
 
+
 ## 📂 Project Structure
 ```bash
 aws-secure-static-site/
@@ -68,6 +70,8 @@ aws-secure-static-site/
 ├── 📐 diagram/         # Architecture and flow diagrams
 ├── 📘 docs/            # Technical documentation and PDF
 └── 📜 README.md        # Project documentation
+
+
 Deployment Steps (High Level)
 The following steps were taken to build this infrastructure:
 
@@ -91,10 +95,10 @@ The following steps were taken to build this infrastructure:
 
 [x] Invalidate cache for content refresh
 
+
+
 🖼️ Screenshots
 Configuration evidence is available in the screenshots/ folder.
-
-<details> <summary>Click to view Screenshot list</summary>
 
 S3 static hosting configuration
 
@@ -106,9 +110,9 @@ Cache invalidation
 
 Lifecycle rule configuration
 
-</details>
 
-📚 What I Learned
+
+📚 What I Learned:
 How CDNs (CloudFront) improve performance and security.
 
 The critical difference between public and private S3 buckets.
@@ -119,7 +123,7 @@ Cost optimization techniques using Lifecycle rules.
 
 Production-style hosting workflows.
 
-🔮 Future Improvements
+🔮 Future Improvements:
 [ ] Add Custom Domain (Route 53)
 
 [ ] Add WAF Protection
