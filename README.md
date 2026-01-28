@@ -1,254 +1,94 @@
-AWS Secure Static Website Hosting
+# AWS Secure Static Website Hosting
 
-Overview
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/S3-%23569A31.svg?style=for-the-badge&logo=amazons3&logoColor=white)
+![CloudFront](https://img.shields.io/badge/CloudFront-%238C4FFF.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-success?style=for-the-badge)
 
+## 📌 Overview
+This project demonstrates a secure and cost-efficient static website hosting architecture on AWS. The website content is stored in a **private Amazon S3 bucket** and delivered globally via **Amazon CloudFront** with HTTPS enforcement and restricted bucket access.
 
+The project is documentation-driven and focuses on cloud security, access control, and CDN-based delivery using AWS Free Tier services.
 
-This project demonstrates a secure, scalable, and cost-efficient static website hosting architecture on AWS, designed using industry best practices. The website is hosted in a private Amazon S3 bucket and delivered globally via Amazon CloudFront over HTTPS, ensuring security, performance, and controlled access.
+---
 
+## 🏗️ Architecture
+**Flow:** `User` → `CloudFront (CDN + HTTPS)` → `Private S3 Bucket`
 
+CloudFront acts as the secure public entry point and retrieves content from S3 using **Origin Access Control (OAC)**. Direct public access to the S3 bucket is completely blocked to ensure security.
 
-The primary objective of this project is to learn and showcase real-world cloud infrastructure design, focusing on security hardening, CDN-based content delivery, and cost optimization.
+![Architecture Diagram](diagram/architecture.png)
+*(Note: Ensure your architecture diagram is named architecture.png and placed in the diagram/ folder)*
 
+---
 
+## ☁️ AWS Services Used
 
-Architecture Overview
+| Service | Purpose |
+| :--- | :--- |
+| **Amazon S3** | Secure storage for static website files (HTML, CSS, JS). |
+| **Amazon CloudFront** | Global Content Delivery Network (CDN) & HTTPS termination. |
+| **AWS IAM / Policies** | Origin Access Control (OAC) to restrict S3 access. |
+| **S3 Lifecycle Rules** | Cost optimization by managing object versions. |
 
+---
 
+## 🔐 Security Features
+* ✅ **Zero Public Access:** S3 public access is fully blocked.
+* ✅ **Origin Access Control (OAC):** Only CloudFront is authenticated to read from the bucket.
+* ✅ **Encryption in Transit:** HTTPS enforced; HTTP requests are automatically redirected.
+* ✅ **Method Restriction:** Only `GET` and `HEAD` methods are allowed (no write access).
+* ✅ **Security Best Practices:** No credentials are stored in the repository.
 
-Request Flow:
+---
 
+## 💰 Cost Control
+> This project is designed to run completely within the **AWS Free Tier**.
 
+* **Serverless:** No EC2, RDS, Lambda, or paid backend services.
+* **Caching:** CloudFront caching minimizes the number of requests hitting S3.
+* **Lifecycle Management:** Rules configured to delete old object versions automatically.
+* **Logging:** Intentionally disabled to avoid unnecessary storage charges.
 
-User (Browser)
+---
 
-   ↓ HTTPS
-
-Amazon CloudFront (CDN)
-
-   ↓ Origin Access Control (OAC)
-
-Private Amazon S3 Bucket (Static Website Files)
-
-
-
-
-
-CloudFront acts as the secure entry point for all requests.
-
-Direct public access to the S3 bucket is completely blocked, and objects are served only through CloudFront using Origin Access Control.
-
-
-
-Architecture Diagram
-
-
-
-A detailed architecture diagram is included in the documentation:
-
-
-
-docs/AWS\_Secure\_Static\_Website\_Hosting.pdf
-
-
-
-diagram/flow.png
-
-
-
-AWS Services Used
-
-
-
-Amazon S3 – Static website storage (private bucket)
-
-
-
-Amazon CloudFront – Global CDN with HTTPS enforcement
-
-
-
-AWS IAM \& Bucket Policy – Secure origin access using OAC
-
-
-
-S3 Lifecycle Rules – Automatic cleanup of non-current object versions
-
-
-
-CloudFront Cache Invalidation – Content refresh control
-
-
-
-Security Implementation
-
-
-
-This project follows a security-first approach:
-
-
-
-S3 public access fully blocked
-
-
-
-CloudFront is the only allowed reader of S3 objects (OAC)
-
-
-
-HTTPS enforced using CloudFront
-
-
-
-HTTP automatically redirected to HTTPS
-
-
-
-Only GET and HEAD methods allowed
-
-
-
-No credentials, secrets, or keys stored in the repository
-
-
-
-Cost Optimization
-
-
-
-Uses AWS Free Tier–eligible services
-
-
-
-No EC2, RDS, Lambda, or paid backend services
-
-
-
-CloudFront caching minimizes S3 request costs
-
-
-
-Lifecycle rules delete old object versions automatically
-
-
-
-Logging intentionally disabled to avoid unnecessary charges
-
-
-
-Repository Structure
-
+## 📂 Repository Structure
+```bash
 aws-secure-static-site/
+├── 📄 website/         # Static website files (HTML, robots.txt, sitemap.xml)
+├── 📷 screenshots/     # AWS console and configuration screenshots
+├── 📐 diagram/         # Architecture and flow diagrams
+├── 📘 docs/            # Detailed documentation and PDF
+└── 📜 README.md        # Project overview and documentation
+Deployment Summary
+The following steps were taken to deploy this infrastructure:
 
-├── website/        # Static website files (HTML, robots.txt, sitemap.xml)
+[x] Create a private S3 bucket
 
-├── screenshots/    # AWS console and configuration screenshots
+[x] Upload static website files
 
-├── diagram/        # Architecture and flow diagrams
+[x] Enable static website hosting settings
 
-├── docs/           # Detailed documentation and PDF
+[x] Create CloudFront distribution
 
-├── README.md       # Project overview and documentation
+[x] Configure Origin Access Control (OAC)
 
+[x] Block all public access to S3
 
+[x] Enforce HTTPS and caching policies
 
-Screenshots
+[x] Apply S3 Lifecycle rules
 
+🖼️ Screenshots
+Configuration evidence is available in the screenshots/ directory:
 
+S3 Configuration: Static website hosting settings.
 
-Configuration screenshots are available in the screenshots/ directory, including:
+CloudFront Setup: Distribution details and OAC setup.
 
+Security: Bucket policy and Block Public Access settings.
 
+Optimization: Cache invalidation and Lifecycle rules.
 
-S3 static website configuration
-
-
-
-CloudFront distribution setup
-
-
-
-Bucket policy with Origin Access Control
-
-
-
-Cache invalidation
-
-
-
-Lifecycle rule configuration
-
-
-
-Deployment Summary (High Level)
-
-
-
-Create a private S3 bucket
-
-
-
-Upload static website files
-
-
-
-Enable static website hosting
-
-
-
-Create a CloudFront distribution
-
-
-
-Configure Origin Access Control (OAC)
-
-
-
-Block all public access to S3
-
-
-
-Enforce HTTPS and caching
-
-
-
-Apply lifecycle rules
-
-
-
-Perform cache invalidation
-
-
-
-Learning Outcomes
-
-
-
-Designing secure cloud architectures
-
-
-
-Implementing private S3 access with CloudFront
-
-
-
-Applying CDN caching and HTTPS enforcement
-
-
-
-Cost-aware infrastructure decisions
-
-
-
-Structuring and documenting real-world cloud projects
-
-
-
-Disclaimer
-
-
-
-The website content used in this project is for learning and demonstration purposes only.
-
-The focus of this repository is cloud infrastructure design and security, not website ownership.
-
+👨‍💻 Author
+Cholan Kinnera Cloud & AWS Learner
